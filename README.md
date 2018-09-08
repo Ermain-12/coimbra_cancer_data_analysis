@@ -9,23 +9,24 @@ for development and testing purposes. See deployment for notes on how to deploy 
 
 ### Prerequisites
 
-Windows 7/8/10:
-    Intellij IDEA
-    Scala version <= 2.11.x
-    Apache Spark version 2.x.x
-    sbt version 1.x.x  
+*Windows 7/8/10:
+    ** Intellij IDEA
+    ** Scala version <= 2.11.x
+    ** Apache Spark version 2.x.x
+    ** sbt version 1.x.x  
     
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-Download:
-    i.[Intellij IDEA](https://www.jetbrains.com/idea/)
-    ii. [sbt](https://www.jetbrains.com/idea/)
-    iii. [Spark](https://www.jetbrains.com/idea/): 
-           --After downloading Apache Spark, follow the instructions from [here](https://hernandezpaul.wordpress.com/2016/01/24/apache-spark-installation-on-windows-10/)
-           --Make sure to check that your installation works by running the command --> spark-shell in your native command line 
+*Download:
+    **i.[Intellij IDEA](https://www.jetbrains.com/idea/)
+    **ii. [sbt](https://www.jetbrains.com/idea/)
+    **iii. [Spark](https://www.jetbrains.com/idea/): 
+           ***After downloading Apache Spark, follow the instructions from 
+                [here](https://hernandezpaul.wordpress.com/2016/01/24/apache-spark-installation-on-windows-10/)
+           ***Make sure to check that your installation works by running the command --> spark-shell in your native command line 
 
 ## Built With
 
