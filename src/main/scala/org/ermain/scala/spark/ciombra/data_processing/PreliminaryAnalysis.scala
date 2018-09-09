@@ -12,6 +12,7 @@ object PreliminaryAnalysis {
 
     // Split the data into a training and testing set
     val seed: Double = 98765L
+    println("Splitting data-set....")
     val dataSplit: Array[Dataset[Row]] = dataInput.randomSplit(Array(0.85, 0.15))
     println(s"dataSplit size: ${dataSplit.length}")
 
@@ -22,9 +23,9 @@ object PreliminaryAnalysis {
     sqlDF.show(10)
 
     val trainingSet = dataSplit(0)
-    println(s"Training set size is ${trainingSet.count()}")
+    // println(s"Training set size is ${trainingSet.describe()}")
 
     val testingSet = dataSplit(1)
-    println(s"Testing set size is ${testingSet.count()}")
+    // println(s"Testing set size is ${testingSet.describe()}")
   }
 }
