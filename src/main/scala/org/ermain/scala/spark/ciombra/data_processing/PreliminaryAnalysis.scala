@@ -13,19 +13,23 @@ object PreliminaryAnalysis {
     // Split the data into a training and testing set
     val seed: Double = 98765L
     println("Splitting data-set....")
-    val dataSplit: Array[Dataset[Row]] = dataInput.randomSplit(Array(0.85, 0.15))
-    println(s"dataSplit size: ${dataSplit.length}")
+    val Array(trainingSet, testingSet): Array[Dataset[Row]] = dataInput.randomSplit(Array(0.85, 0.15, seed))
 
+    println("Displaying the first ten rows of the data set.....")
     dataInput.show(10)
 
     dataInput.createOrReplaceTempView("coimbra")
     val sqlDF = session.sql("SELECT Age, BMI FROM coimbra WHERE Age BETWEEN 20 AND 40")
     sqlDF.show(10)
 
-    val trainingSet = dataSplit(0)
-    // println(s"Training set size is ${trainingSet.describe()}")
+    val training = trainingSet
+        .cache()
+    println(s"Training set size is ${training.show(5)}")
+    println(s"Training set is ${training.describe()}")
 
-    val testingSet = dataSplit(1)
-    // println(s"Testing set size is ${testingSet.describe()}")
+    val testing = testingSet
+      .cache()
+    println(s"Testing set size is ${testingSet.show(5)}")
+    println(s"Testing set is ${testing.describe()}")
   }
 }
