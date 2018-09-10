@@ -6,7 +6,9 @@ import org.ermain.scala.spark.ciombra.data_processing.Preprocessing
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.linalg.Vectors
 
-object LinearRegression {
+import org.ermain.scala.spark.ciombra.data_processing.PreliminaryAnalysis
+
+object LinearRegression{
 
   def main(args: Array[String]): Unit = {
 
@@ -30,9 +32,12 @@ object LinearRegression {
     val linRegressPipeline = new Pipeline()
       .setStages(Array(assembler, logRegress))
 
+
+    // Input the training data into the Regression model
+    val trainInputData = PreliminaryAnalysis.training
     // Create the logistic regression model
     val logRegressModel = linRegressPipeline
-        .fit(inputDataset)
+        .fit(trainInputData)
 
 
     // Display the coefficients and intercept of the entire dataset

@@ -4,7 +4,7 @@ import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 
 object PreliminaryAnalysis {
 
-  def main(args: Array[String]): Unit = {
+
     val session: SparkSession = SparkSessionCreate.createSession
     val dataInput: DataFrame = Preprocessing.data
 
@@ -13,7 +13,7 @@ object PreliminaryAnalysis {
     // Split the data into a training and testing set
     val seed: Double = 98765L
     println("Splitting data-set....")
-    val Array(trainingSet, testingSet): Array[Dataset[Row]] = dataInput.randomSplit(Array(0.85, 0.15, seed))
+    val Array(trainingSet, testingSet) = dataInput.randomSplit(Array(0.85, 0.15))
 
     println("Displaying the first ten rows of the data set.....")
     dataInput.show(10)
@@ -31,5 +31,5 @@ object PreliminaryAnalysis {
       .cache()
     println(s"Testing set size is ${testingSet.show(5)}")
     println(s"Testing set is ${testing.describe()}")
-  }
+
 }
