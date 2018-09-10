@@ -54,8 +54,8 @@ object LinearRegression{
 //    println(s"Root-Mean-Squared Error: $RMSE")
 
     // Now, we must evaluate the accuracy of the Linear Regression algorithms
-    val linRegressEvaluate = new RegressionEvaluator()
-    linRegressEvaluate.evaluate(predictions)
+//    val linRegressEvaluate = new RegressionEvaluator()
+//    linRegressEvaluate.evaluate(predictions)
 
     // Display the coefficients and intercept of the entire dataset
     println(s"Dataset Coefficient: ${logRegressModel.uid}")
