@@ -11,5 +11,6 @@ libraryDependencies ++= Seq(
   "com.databricks" % "spark-csv_2.11" % "1.2.0",
   "org.scalanlp" %% "breeze" % "0.13.2",
   "org.scalanlp" %% "breeze-natives" % "0.13.2",
-  "org.scalanlp" %% "breeze-viz" % "0.13.2"
+  "org.scalanlp" %% "breeze-viz" % "0.13.2",
+  "org.vegas-viz" %% "vegas" % "0.3.11"
 )
