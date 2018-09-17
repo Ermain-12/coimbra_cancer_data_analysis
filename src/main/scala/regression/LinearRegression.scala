@@ -41,7 +41,7 @@ object LinearRegression{
     // Create the Logistic Regression object
     val logRegress = new LogisticRegression()
       .setFeaturesCol("features")     // This sets the feature column for the data-set
-      .setLabelCol("classification")  // This sets the Label column of the data-set
+      .setLabelCol("label")  // This sets the Label column of the data-set
 //      .setMaxIter(5)
 //      .setRegParam(0.3)
 //      .setElasticNetParam(0.8)
@@ -82,20 +82,21 @@ object LinearRegression{
 
     val trainPredictionsAndLabels = crossValidatorModel
       .transform(trainInputData)
-      .select("prediction", "classification")
+      .select("label", "prediction")
       .map{
-        case Row(prediction: Double, classification: Double) =>
-          (prediction, classification)
-      }.rdd
+        case Row(label: Double, prediction: Double) =>
+          (label, prediction)
+      }
+      .rdd
 
     // Show the predictions and labels for the testing set
     val testInputData = PreliminaryAnalysis.testing
     val testPredictionsAndLabels = crossValidatorModel
       .transform(testInputData)
-      .select("prediction", "Classification")
+      .select("label", "prediction")
       .map{
-        case Row(prediction: Double, classification: Double) =>
-          (prediction, classification)
+        case Row(label: Double, prediction: Double) =>
+          (label, prediction)
       }.rdd
 
     // Print the schema for the data-set of the selected testing set
