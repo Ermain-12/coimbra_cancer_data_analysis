@@ -19,4 +19,9 @@ object Preprocessing {
     .load(dataPath)
     .cache()
 
+  val dataDF = data
+  dataDF.groupBy("Classification")
+    .sum("bmi")
+    .show()
+
 }
