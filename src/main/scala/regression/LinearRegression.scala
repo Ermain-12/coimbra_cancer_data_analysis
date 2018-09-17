@@ -3,19 +3,20 @@ package regression
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.evaluation.RegressionEvaluator
-import org.ermain.scala.spark.ciombra.data_processing.Preprocessing
+import org.ermain.scala.spark.ciombra.data_processing.{PreliminaryAnalysis, Preprocessing, SparkSessionCreate}
 import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
 import org.apache.spark.mllib.evaluation.RegressionMetrics
-import org.apache.spark.sql.Row
-import org.ermain.scala.spark.ciombra.data_processing.PreliminaryAnalysis
+import org.apache.spark.sql.{Row, SparkSession}
 import org.ermain.scala.spark.ciombra.data_processing.DataPipeline._
-
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
 
 object LinearRegression{
 
   def main(args: Array[String]): Unit = {
+    val spark: SparkSession = SparkSessionCreate.createSession
+    import spark.implicits._
+
     Logger.getLogger("org")
       .setLevel(Level.OFF)
     Logger.getLogger("akka")
