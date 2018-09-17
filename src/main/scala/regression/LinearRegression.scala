@@ -10,9 +10,16 @@ import org.apache.spark.sql.Row
 import org.ermain.scala.spark.ciombra.data_processing.PreliminaryAnalysis
 import org.ermain.scala.spark.ciombra.data_processing.DataPipeline._
 
+import org.apache.log4j.Logger
+import org.apache.log4j.Level
+
 object LinearRegression{
 
   def main(args: Array[String]): Unit = {
+    Logger.getLogger("org")
+      .setLevel(Level.OFF)
+    Logger.getLogger("akka")
+      .setLevel(Level.OFF)
 
     // Hyper-parameters
     val numFolds: Int = 10
@@ -40,7 +47,7 @@ object LinearRegression{
 
 
     // WE now create a pipeline
-    println("Bulding ML Pipeline.....")
+    println("Building ML Pipeline.....")
     val linRegressPipeline = new Pipeline()
       .setStages(Array(assembler, logRegress))
 
