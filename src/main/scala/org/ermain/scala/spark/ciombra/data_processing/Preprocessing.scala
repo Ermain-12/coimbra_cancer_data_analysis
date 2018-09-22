@@ -3,7 +3,7 @@ package org.ermain.scala.spark.ciombra.data_processing
 import org.apache.spark
 import org.apache.spark._
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 
 object Preprocessing {
 
@@ -12,7 +12,7 @@ object Preprocessing {
   // Specify the path to the data source
   val dataPath = "data/coimbra.csv"
 
-  val data: DataFrame = session.read
+  val data: Dataset[Row] = session.read
     .option("inferSchema", "true")
     .option("header", "true")
     .format("com.databricks.spark.csv")

@@ -54,5 +54,9 @@ object RandomForest {
     val bestModel = crossValModel.bestModel
     println("The Best Model and Parameters:\n--------------------")
     println(bestModel.asInstanceOf[PipelineModel].stages(3))
+
+    // Make predictions
+    val predictionData = crossValModel.transform(PreliminaryAnalysis.testingSet)
+    predictionData.show(10)
   }
 }
