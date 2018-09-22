@@ -13,7 +13,7 @@ object PreliminaryAnalysis {
     // Split the data into a training and testing set
     val seed: Double = 98765L
     println("Splitting data-set....")
-    val Array(trainingSet, testingSet) = dataInput.randomSplit(Array(0.85, 0.15))
+    val Array(trainingSet, testingSet) = dataInput.randomSplit(Array(0.75, 0.25))
 
     println("Displaying the first ten rows of the data set.....")
     dataInput.show(10)

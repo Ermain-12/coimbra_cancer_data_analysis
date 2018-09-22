@@ -21,7 +21,22 @@ object Preprocessing {
 
   val dataDF = data
   dataDF.groupBy("Classification")
-    .sum("bmi")
+    .sum("BMI")
     .show()
+
+
+  dataDF.groupBy("classification")
+      .sum("HOMA")
+      .show()
+
+  dataDF.groupBy("classification")
+      .sum("Resistin")
+      .show()
+
+  dataDF.groupBy("classification")
+      .sum("Insulin")
+      .show()
+
+  dataDF.drop("age")
 
 }

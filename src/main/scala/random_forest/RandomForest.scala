@@ -1,4 +1,4 @@
-package org.ermain.scala.spark.coimbra.data_processing.random_forest
+package random_forest
 
 object RandomForest {
 
