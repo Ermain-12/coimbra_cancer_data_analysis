@@ -4,7 +4,6 @@ import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 
 object PreliminaryAnalysis {
 
-
     val session: SparkSession = SparkSessionCreate.createSession
     val dataInput: DataFrame = Preprocessing.data
 

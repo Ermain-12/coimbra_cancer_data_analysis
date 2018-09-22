@@ -49,14 +49,16 @@ object RandomForest {
       .setEvaluator(evaluator)
       .setNumFolds(10)
 
-    val crossValModel = crossValid.fit(PreliminaryAnalysis.trainingSet)
+     val crossValModel = crossValid.fit(PreliminaryAnalysis.trainingSet)
 
-    val bestModel = crossValModel.bestModel
-    println("The Best Model and Parameters:\n--------------------")
-    println(bestModel.asInstanceOf[PipelineModel].stages(3))
+     val bestModel = crossValModel.bestModel
+     println("The Best Model and Parameters:\n--------------------")
+     println(bestModel.asInstanceOf[PipelineModel].stages(3))
 
     // Make predictions
     val predictionData = crossValModel.transform(PreliminaryAnalysis.testingSet)
     predictionData.show(10)
+    val predictions = crossValModel.transform(PreliminaryAnalysis.trainingSet)
+    predictions.show(10)
   }
 }

@@ -69,11 +69,10 @@ object LinearRegression{
       .setEstimatorParamMaps(paramGridBuilder)
       .setEvaluator(new RegressionEvaluator)
       .setEstimator(linRegressPipeline)
+
     // Input the training data into the Regression model
-    val trainInputData = PreliminaryAnalysis.training
-    // Create the logistic regression model
-//    val logRegressModel = linRegressPipeline
-//        .fit(trainInputData)
+    val trainInputData = PreliminaryAnalysis.trainingSet
+
     // ************************************************************
     println("Training model with Linear Regression algorithm")
     // ************************************************************
@@ -90,7 +89,7 @@ object LinearRegression{
       .rdd
 
     // Show the predictions and labels for the testing set
-    val testInputData = PreliminaryAnalysis.testing
+    val testInputData = PreliminaryAnalysis.testingSet
     val testPredictionsAndLabels = crossValidatorModel
       .transform(testInputData)
       .select("label", "prediction")
