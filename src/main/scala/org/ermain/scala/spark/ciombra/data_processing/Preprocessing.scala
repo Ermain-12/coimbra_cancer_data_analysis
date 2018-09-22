@@ -20,7 +20,7 @@ object Preprocessing {
     .cache()
 
   val dataDF = data
-  dataDF.groupBy("Classification")
+  dataDF.groupBy("classification")
     .sum("BMI")
     .show()
 

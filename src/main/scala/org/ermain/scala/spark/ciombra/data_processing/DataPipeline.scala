@@ -8,8 +8,11 @@ object DataPipeline {
     .setInputCol("classification")
     .setOutputCol("label")
 
+  val featuresColumn: Array[String] = Array("BMI", "Glucose", "Insulin", "HOMA",
+    "Leptin", "Adiponectin", "Resistin", "MCP_1")
+
   // This is where we create the 'features' column for the linear regression analysis
   val assembler = new VectorAssembler()
-    .setInputCols(Array("Age", "BMI", "Glucose", "Insulin", "HOMA", "Leptin", "Adiponectin", "Resistin", "MCP_1"))
+    .setInputCols(featuresColumn)
     .setOutputCol("features")
 }
