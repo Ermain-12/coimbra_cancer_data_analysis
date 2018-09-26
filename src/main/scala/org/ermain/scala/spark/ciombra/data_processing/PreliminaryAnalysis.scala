@@ -21,15 +21,5 @@ object PreliminaryAnalysis {
     val sqlDF = session.sql("SELECT Age, BMI FROM coimbra WHERE Age BETWEEN 20 AND 40")
     sqlDF.show(10)
 
-//    val training = trainingSet
-//        .withColumnRenamed("classification", "label")
-
-//    println(s"Training set size is ${training.show(5)}")
-//    println(s"Training set is ${training.describe()}")
-//
-//    val testing = testingSet
-//        .withColumnRenamed("classification", "label")
-//    println(s"Testing set size is ${testingSet.show(5)}")
-//    println(s"Testing set is ${testing.describe()}")
 
 }

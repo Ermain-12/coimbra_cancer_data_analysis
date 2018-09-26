@@ -19,6 +19,7 @@ object Preprocessing {
     .load(dataPath)
     .cache()
 
+
   val dataDF = data
   dataDF.groupBy("classification")
     .sum("BMI")
