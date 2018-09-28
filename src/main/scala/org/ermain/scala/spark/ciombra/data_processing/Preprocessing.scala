@@ -1,9 +1,6 @@
 package org.ermain.scala.spark.ciombra.data_processing
 
-import org.apache.spark
-import org.apache.spark._
-import org.apache.spark.sql.types._
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+import org.apache.spark.sql.{Dataset, Row, SparkSession}
 
 object Preprocessing {
 
@@ -18,6 +15,7 @@ object Preprocessing {
     .format("com.databricks.spark.csv")
     .load(dataPath)
     .cache()
+    .na.drop()
 
 
   val dataDF = data

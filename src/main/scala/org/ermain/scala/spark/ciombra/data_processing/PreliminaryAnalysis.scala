@@ -1,6 +1,6 @@
 package org.ermain.scala.spark.ciombra.data_processing
 
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object PreliminaryAnalysis {
 

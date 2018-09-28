@@ -5,7 +5,7 @@ import org.apache.spark.ml.classification.RandomForestClassifier
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
 import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
 import org.apache.spark.sql.SparkSession
-import org.ermain.scala.spark.ciombra.data_processing.{DataPipeline, PreliminaryAnalysis, SparkSessionCreate, DataPipeline}
+import org.ermain.scala.spark.ciombra.data_processing.{DataPipeline, PreliminaryAnalysis, SparkSessionCreate}
 
 object RandomForest {
 
@@ -50,7 +50,7 @@ object RandomForest {
       .setEvaluator(evaluator)
       .setNumFolds(10)
 
-     val crossValModel = crossValid.fit(PreliminaryAnalysis.trainingSet)
+     val crossValModel = crossValid.fit(DataPipeline.dataInputDFStr)
 
      val bestModel = crossValModel.bestModel
      println("The Best Model and Parameters:\n--------------------")

@@ -17,7 +17,14 @@ object DataPipeline {
     dataInputDF.show()
 
     val labelIndexer = new StringIndexer()
-      .setInputCol("classification")
-      .setOutputCol("label")
+      .setInputCol("label")
+      .setOutputCol("indexedClassification")
+      .setHandleInvalid("skip")
+      .fit(dataInputDF)
+      .transform(dataInputDF)
 
+
+    println(s"Found labels: $labelIndexer")
+    val dataInputDFStr = labelIndexer
+        //.transform(dataInputDF)
 }
