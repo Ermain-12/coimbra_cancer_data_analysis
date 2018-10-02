@@ -1,38 +1,40 @@
 package org.ermain.scala.spark.ciombra.data_processing
 
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
+import org.ermain.scala.spark.ciombra.data_processing.CoimbraData.Patient
 
 object Preprocessing {
 
-  val session: SparkSession = SparkSessionCreate.createSession
+  val spark: SparkSession = SparkSessionCreate.createSession
 
   // Specify the path to the data source
   val dataPath = "data/coimbra.csv"
 
-  val data: Dataset[Row] = session.read
-    .option("inferSchema", "true")
+  import spark.implicits._
+  val data: Dataset[Patient] = spark.read
+    .option("inferSchema", "false")
     .option("header", "true")
     .format("com.databricks.spark.csv")
     .load(dataPath)
     .cache()
-    .na.drop()
+    .as[Patient]
 
 
   val dataDF = data
-  dataDF.groupBy("classification")
+  dataDF.groupBy("label")
     .sum("BMI")
     .show()
 
 
-  dataDF.groupBy("classification")
+  dataDF.groupBy("label")
       .sum("HOMA")
       .show()
 
-  dataDF.groupBy("classification")
+  dataDF.groupBy("label")
       .sum("Resistin")
       .show()
 
-  dataDF.groupBy("classification")
+  dataDF.groupBy("label")
       .sum("Insulin")
       .show()
 

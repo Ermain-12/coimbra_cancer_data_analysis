@@ -1,11 +1,12 @@
 package org.ermain.scala.spark.ciombra.data_processing
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
+import org.ermain.scala.spark.ciombra.data_processing.CoimbraData.Patient
 
 object PreliminaryAnalysis {
 
     val session: SparkSession = SparkSessionCreate.createSession
-    val dataInput: DataFrame = Preprocessing.data
+    val dataInput: Dataset[Patient] = Preprocessing.data
 
     println(dataInput.printSchema())
 

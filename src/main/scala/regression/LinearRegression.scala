@@ -10,6 +10,7 @@ import org.apache.spark.sql.{Row, SparkSession}
 import org.ermain.scala.spark.ciombra.data_processing.DataPipeline._
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
+import org.apache.spark.ml.feature.VectorAssembler
 
 object LinearRegression{
 
@@ -34,9 +35,9 @@ object LinearRegression{
     val inputDataset = Preprocessing.data
 
 //    // This is where we create the 'features' column for the linear regression analysis
-//    val assembler = new VectorAssembler()
-//      .setInputCols(Array("Age", "BMI", "Glucose", "Insulin", "HOMA", "Leptin", "Adiponectin", "Resistin", "MCP_1"))
-//      .setOutputCol("features")
+    val assembler = new VectorAssembler()
+      .setInputCols(Array("Age", "BMI", "Glucose", "Insulin", "HOMA", "Leptin", "Adiponectin", "Resistin", "MCP_1"))
+      .setOutputCol("features")
 
     // Create the Logistic Regression object
     val logRegress = new LogisticRegression()
@@ -49,8 +50,8 @@ object LinearRegression{
 
     // WE now create a pipeline
     println("Building ML Pipeline.....")
-//    val linRegressPipeline = new Pipeline()
-//      .setStages(Array(assembler, logRegress))
+    val linRegressPipeline = new Pipeline()
+      .setStages(Array(assembler, logRegress))
 
     // ***********************************************************
     println("Preparing K-fold Cross Validation and Grid Search: Model tuning")
@@ -64,11 +65,11 @@ object LinearRegression{
       .addGrid(logRegress.elasticNetParam, ElasticParam)
       .build()
 
-//    val crossEval = new CrossValidator()
-//      .setNumFolds(numFolds)
-//      .setEstimatorParamMaps(paramGridBuilder)
-//      .setEvaluator(new RegressionEvaluator)
-//      .setEstimator(linRegressPipeline)
+    val crossEval = new CrossValidator()
+      .setNumFolds(numFolds)
+      .setEstimatorParamMaps(paramGridBuilder)
+      .setEvaluator(new RegressionEvaluator)
+      .setEstimator(linRegressPipeline)
 
     // Input the training data into the Regression model
     val trainInputData = PreliminaryAnalysis.trainingSet
@@ -76,27 +77,27 @@ object LinearRegression{
     // ************************************************************
     println("Training model with Linear Regression algorithm")
     // ************************************************************
-//    val crossValidatorModel = crossEval.fit(trainInputData)
-//
-//
-//    val trainPredictionsAndLabels = crossValidatorModel
-//      .transform(trainInputData)
-//      .select("label", "prediction")
-//      .map{
-//        case Row(label: Double, prediction: Double) =>
-//          (label, prediction)
-//      }
-//      .rdd
-//
+    val crossValidatorModel = crossEval.fit(trainInputData)
+
+
+    val trainPredictionsAndLabels = crossValidatorModel
+      .transform(trainInputData)
+      .select("label", "prediction")
+      .map{
+        case Row(label: Double, prediction: Double) =>
+          (label, prediction)
+      }
+      .rdd
+
 //    // Show the predictions and labels for the testing set
-//    val testInputData = PreliminaryAnalysis.testingSet
-//    val testPredictionsAndLabels = crossValidatorModel
-//      .transform(testInputData)
-//      .select("label", "prediction")
-//      .map{
-//        case Row(label: Double, prediction: Double) =>
-//          (label, prediction)
-//      }.rdd
+    val testInputData = PreliminaryAnalysis.testingSet
+    val testPredictionsAndLabels = crossValidatorModel
+      .transform(testInputData)
+      .select("label", "prediction")
+      .map{
+        case Row(label: Double, prediction: Double) =>
+          (label, prediction)
+      }.rdd
 
     // Print the schema for the data-set of the selected testing set
 
@@ -129,12 +130,12 @@ object LinearRegression{
 //    val selected = predictions.select("rawPrediction", "probability", "prediction", "Classification")
 //    selected.show()
 
-    // Now, begin the testing the accuracy of this model
-//    val trainRegressionMetrics =  new RegressionMetrics(trainPredictionsAndLabels)
-//    val testRegressionMetrics =   new RegressionMetrics(testPredictionsAndLabels)
-//
-//
-//    println(s"Training Mean Squared Error: ${trainRegressionMetrics.meanSquaredError}")
-//    println(s"Testing Mean Squared Error: ${testRegressionMetrics.meanSquaredError}")
+     // Now, begin the testing the accuracy of this model
+    val trainRegressionMetrics =  new RegressionMetrics(trainPredictionsAndLabels)
+    val testRegressionMetrics =   new RegressionMetrics(testPredictionsAndLabels)
+
+
+    println(s"Training Mean Squared Error: ${trainRegressionMetrics.meanSquaredError}")
+    println(s"Testing Mean Squared Error: ${testRegressionMetrics.meanSquaredError}")
   }
 }
