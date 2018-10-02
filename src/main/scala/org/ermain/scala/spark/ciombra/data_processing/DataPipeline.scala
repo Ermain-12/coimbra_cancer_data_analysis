@@ -57,7 +57,7 @@ object DataPipeline {
     // Create the Logistic Regression object
     val logRegress = new LogisticRegression()
       .setFeaturesCol("features")     // This sets the feature column for the data-set
-      .setLabelCol("label")  // This sets the Label column of the data-set
+      .setLabelCol("Label")  // This sets the Label column of the data-set
 
     val pipeline = new Pipeline()
         .setStages(Array(bmiIndexer,
@@ -69,6 +69,7 @@ object DataPipeline {
             resistinIndexer,
             mcpIndexer,
             labelIndexer,
+          assembler,
             logRegress))
 
 

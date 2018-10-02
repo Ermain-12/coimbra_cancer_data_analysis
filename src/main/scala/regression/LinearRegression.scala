@@ -1,6 +1,5 @@
 package regression
 
-import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.ermain.scala.spark.ciombra.data_processing.{PreliminaryAnalysis, DataPipeline, SparkSessionCreate}
@@ -63,10 +62,10 @@ object LinearRegression{
     println("Training model with Linear Regression algorithm")
     // ************************************************************
     val crossValidatorModel = crossEval.fit(trainInputData)
+      .transform(trainInputData)
 
 
     val trainPredictionsAndLabels = crossValidatorModel
-      .transform(trainInputData)
       .select("label", "prediction")
       .map{
         case Row(label: Double, prediction: Double) =>
@@ -75,14 +74,14 @@ object LinearRegression{
       .rdd
 
 //    // Show the predictions and labels for the testing set
-    val testInputData = PreliminaryAnalysis.testingSet
-    val testPredictionsAndLabels = crossValidatorModel
-      .transform(testInputData)
-      .select("label", "prediction")
-      .map{
-        case Row(label: Double, prediction: Double) =>
-          (label, prediction)
-      }.rdd
+//    val testInputData = PreliminaryAnalysis.testingSet
+//    val testPredictionsAndLabels = crossValidatorModel
+//      .transform(testInputData)
+//      .select("label", "prediction")
+//      .map{
+//        case Row(label: Double, prediction: Double) =>
+//          (label, prediction)
+//      }.rdd
 
     // Print the schema for the data-set of the selected testing set
 
@@ -117,10 +116,10 @@ object LinearRegression{
 
      // Now, begin the testing the accuracy of this model
     val trainRegressionMetrics =  new RegressionMetrics(trainPredictionsAndLabels)
-    val testRegressionMetrics =   new RegressionMetrics(testPredictionsAndLabels)
+    //val testRegressionMetrics =   new RegressionMetrics(testPredictionsAndLabels)
 
 
     println(s"Training Mean Squared Error: ${trainRegressionMetrics.meanSquaredError}")
-    println(s"Testing Mean Squared Error: ${testRegressionMetrics.meanSquaredError}")
+    //println(s"Testing Mean Squared Error: ${testRegressionMetrics.meanSquaredError}")
   }
 }

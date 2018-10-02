@@ -22,14 +22,6 @@ object RandomForest {
       .setLabelCol("label")
       .setSeed(seed)
 
-
-    // Set the stages for the pipeline
-//    val randomForestPipeline = new Pipeline()
-//      .setStages(Array(DataPipeline.labelStringIndexer,
-//                       DataPipeline.assembler,
-//                       randomForestModel
-//      ))
-//
     // Search through decision tree's maxDepth parameter for best model
     val paramGrid = new ParamGridBuilder()
       .addGrid(randomForestModel.maxDepth, 5 :: 10 :: 15 :: 20 :: 25 :: 30 :: Nil)
@@ -40,7 +32,7 @@ object RandomForest {
       .build()
 
     val evaluator = new BinaryClassificationEvaluator()
-      .setLabelCol("label")
+      .setLabelCol("Label")
       .setRawPredictionCol("prediction")
 
     // Now set-up a 10-fold Cross-Validator
