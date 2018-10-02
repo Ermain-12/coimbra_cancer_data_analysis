@@ -1,6 +1,6 @@
 package org.ermain.scala.spark.ciombra.data_processing
 
-import org.apache.spark.sql.{Dataset, Row, SparkSession}
+import org.apache.spark.sql.{Dataset, SparkSession}
 import org.ermain.scala.spark.ciombra.data_processing.CoimbraData.Patient
 
 object Preprocessing {
@@ -19,25 +19,6 @@ object Preprocessing {
     .cache()
     .as[Patient]
 
-
-  val dataDF = data
-  dataDF.groupBy("label")
-    .sum("BMI")
-    .show()
-
-
-  dataDF.groupBy("label")
-      .sum("HOMA")
-      .show()
-
-  dataDF.groupBy("label")
-      .sum("Resistin")
-      .show()
-
-  dataDF.groupBy("label")
-      .sum("Insulin")
-      .show()
-
-  dataDF.drop("age")
+  data.drop("age")
 
 }

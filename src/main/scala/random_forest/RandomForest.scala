@@ -50,7 +50,8 @@ object RandomForest {
       .setEvaluator(evaluator)
       .setNumFolds(10)
 
-     val crossValModel = crossValid.fit(DataPipeline.dataInputDFStr)
+    val trainInputData = PreliminaryAnalysis.trainingSet
+     val crossValModel = crossValid.fit(trainInputData)
 
      val bestModel = crossValModel.bestModel
      println("The Best Model and Parameters:\n--------------------")

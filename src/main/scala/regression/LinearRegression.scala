@@ -3,14 +3,12 @@ package regression
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.evaluation.RegressionEvaluator
-import org.ermain.scala.spark.ciombra.data_processing.{PreliminaryAnalysis, Preprocessing, SparkSessionCreate}
+import org.ermain.scala.spark.ciombra.data_processing.{PreliminaryAnalysis, DataPipeline, SparkSessionCreate}
 import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
 import org.apache.spark.mllib.evaluation.RegressionMetrics
 import org.apache.spark.sql.{Row, SparkSession}
-import org.ermain.scala.spark.ciombra.data_processing.DataPipeline._
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
-import org.apache.spark.ml.feature.VectorAssembler
 
 object LinearRegression{
 
@@ -30,28 +28,15 @@ object LinearRegression{
     val RegParam: Seq[Double] = Seq(0.001)
     val ElasticParam: Seq[Double] = Seq(0.001)
 
-
-    // Prepare the processing data
-    val inputDataset = Preprocessing.data
-
-//    // This is where we create the 'features' column for the linear regression analysis
-    val assembler = new VectorAssembler()
-      .setInputCols(Array("Age", "BMI", "Glucose", "Insulin", "HOMA", "Leptin", "Adiponectin", "Resistin", "MCP_1"))
-      .setOutputCol("features")
-
     // Create the Logistic Regression object
     val logRegress = new LogisticRegression()
       .setFeaturesCol("features")     // This sets the feature column for the data-set
       .setLabelCol("label")  // This sets the Label column of the data-set
-//      .setMaxIter(5)
-//      .setRegParam(0.3)
-//      .setElasticNetParam(0.8)
 
 
     // WE now create a pipeline
     println("Building ML Pipeline.....")
-    val linRegressPipeline = new Pipeline()
-      .setStages(Array(assembler, logRegress))
+    val linRegressPipeline = DataPipeline.pipeline
 
     // ***********************************************************
     println("Preparing K-fold Cross Validation and Grid Search: Model tuning")
