@@ -48,11 +48,8 @@ object DataPipeline {
       .setInputCols(featuresColumn)
       .setOutputCol("features")
 
-    val dataInputDF = assembler.transform(PreliminaryAnalysis.trainingSet)
 
-    dataInputDF.show()
-
-    val labelIndexer = new StringIndexer()
+    val labelIndexer: StringIndexer = new StringIndexer()
       .setInputCol("classification")
       .setOutputCol("Label")
       .setHandleInvalid("skip")
@@ -75,8 +72,4 @@ object DataPipeline {
             logRegress))
 
 
-
-    println(s"Found labels: $labelIndexer")
-    val dataInputDFStr = labelIndexer
-        //.transform(dataInputDF)
 }
